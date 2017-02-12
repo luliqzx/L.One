@@ -8,18 +8,14 @@ using System.Threading.Tasks;
 
 namespace L.One.Domain.Map
 {
-    public class ActorMap : ClassMap<Actor>
+    public class RoleMap : ClassMap<Role>
     {
-        public ActorMap()
+        public RoleMap()
         {
-            this.Id(x => x.Id).Column("ActorId").GeneratedBy.Assigned();
-            this.Map(x => x.Active);
+            this.Id(x => x.Id).Column("RoleId").GeneratedBy.Assigned();
+            this.References(x => x.MainRole).Column("MainRoleId").Cascade.SaveUpdate();
+            this.HasManyToMany(x => x.Actors).Table("ActorRole").ParentKeyColumn("RoleId").ChildKeyColumn("ActorId");
             this.Map(x => x.Description);
-            this.References(x => x.MainActor).Column("MainActorId");
-            this.HasOne(x => x.Profile).PropertyRef(x => x.Actor).Cascade.All();
-
-            this.HasMany(x => x.OtherAddress).KeyColumn("ActorId").Inverse().Cascade.AllDeleteOrphan();
-            this.HasManyToMany(x => x.Roles).Table("ActorRole").ParentKeyColumn("ActorId").ChildKeyColumn("RoleId");
 
             #region Audit Trail
 

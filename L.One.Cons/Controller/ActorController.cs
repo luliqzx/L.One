@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NHibernate.Linq;
+using NHibernate;
 
 namespace L.One.Cons.Controller
 {
@@ -46,6 +47,22 @@ namespace L.One.Cons.Controller
                 this.UnitOfWork.Commit();
             }
 
+            Role roleAdmin = this.UnitOfWork.Session.Query<Role>().FirstOrDefault(x => x.Id == "Admin");
+            if (roleAdmin == null)
+            {
+                roleAdmin = new Role();
+                roleAdmin.Id = "Admin";
+                roleAdmin.Description = "Admin Role";
+                roleAdmin.CreateDate = DateTime.Now;
+                roleAdmin.UpdateDate = DateTime.Now;
+
+                roleAdmin.AddActor(parent1);
+
+                this.UnitOfWork.BeginTransaction();
+                this.UnitOfWork.Session.Save(roleAdmin);
+                this.UnitOfWork.Commit();
+            }
+
             Actor Actor = new Actor();
             Actor.Id = "001";
             Actor.CreateDate = DateTime.Now;
@@ -71,6 +88,20 @@ namespace L.One.Cons.Controller
             othAddr.CreateDate = DateTime.Now;
             othAddr.UpdateDate = DateTime.Now;
             Actor.AddNewAddress(othAddr);
+
+            Role role = this.UnitOfWork.CreateSession().Query<Role>().FirstOrDefault(x => x.Id == "User");
+            if (role == null)
+            {
+                role = new Role();
+                role.Id = "User";
+                role.Description = "User Role";
+                role.CreateDate = DateTime.Now;
+                role.UpdateDate = DateTime.Now;
+                this.UnitOfWork.BeginTransaction();
+                this.UnitOfWork.Session.Save(role);
+                this.UnitOfWork.Commit();
+            }
+            Actor.AddRole(role);
 
             this.UnitOfWork.BeginTransaction();
             this.ActRepo.Save(Actor);
