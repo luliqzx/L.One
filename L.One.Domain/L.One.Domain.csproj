@@ -57,8 +57,10 @@
     <Compile Include="Entity\Actor.cs" />
     <Compile Include="Entity\ActorType.cs" />
     <Compile Include="Entity\BaseEntity.cs" />
+    <Compile Include="Entity\Menu.cs" />
     <Compile Include="Entity\OtherAddress.cs" />
     <Compile Include="Entity\Profile.cs" />
+    <Compile Include="Entity\Role.cs" />
     <Compile Include="Map\ActorMap.cs" />
     <Compile Include="Map\OtherAddressMap.cs" />
     <Compile Include="Map\ProfileMap.cs" />

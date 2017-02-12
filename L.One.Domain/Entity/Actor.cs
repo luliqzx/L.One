@@ -17,6 +17,7 @@ namespace L.One.Domain.Entity
         //public virtual string MainActorId { get; set; }
 
         public virtual IList<OtherAddress> OtherAddress { get; set; }
+        public virtual IList<Role> Roles { get; set; }
 
         public virtual void SetProfile(Profile Profile)
         {
@@ -53,6 +54,32 @@ namespace L.One.Domain.Entity
             if (OtherAddress.FirstOrDefault(x => x.Id == RemoveAddress.Id) != null)
             {
                 OtherAddress.Remove(RemoveAddress);
+            }
+        }
+
+        public virtual void AddRole(Role newRole)
+        {
+            if (Roles == null)
+            {
+                Roles = new List<Role>();
+            }
+
+            if (Roles.FirstOrDefault(x => x.Id == newRole.Id) == null)
+            {
+                Roles.Add(newRole);
+            }
+        }
+
+        public virtual void RemoveRole(Role role)
+        {
+            if (Roles == null)
+            {
+                Roles = new List<Role>();
+            }
+
+            if (Roles.FirstOrDefault(x => x.Id == role.Id) != null)
+            {
+                Roles.Remove(role);
             }
         }
     }

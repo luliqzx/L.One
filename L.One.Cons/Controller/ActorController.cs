@@ -44,7 +44,6 @@ namespace L.One.Cons.Controller
                 this.UnitOfWork.BeginTransaction();
                 this.ActRepo.Save(parent1);
                 this.UnitOfWork.Commit();
-
             }
 
             Actor Actor = new Actor();
