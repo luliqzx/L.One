@@ -17,6 +17,8 @@ namespace L.One.Domain.Map
             this.HasManyToMany(x => x.Actors).Table("ActorRole").ParentKeyColumn("RoleId").ChildKeyColumn("ActorId");
             this.Map(x => x.Description);
 
+            this.HasMany(x => x.RoleMenus).KeyColumn("RoleId").Inverse();
+
             #region Audit Trail
 
             this.Map(x => x.CreateBy);

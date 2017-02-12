@@ -59,12 +59,17 @@
     <Compile Include="Entity\BaseEntity.cs" />
     <Compile Include="Entity\Menu.cs" />
     <Compile Include="Entity\OtherAddress.cs" />
+    <Compile Include="Entity\Privilege.cs" />
     <Compile Include="Entity\Profile.cs" />
     <Compile Include="Entity\Role.cs" />
+    <Compile Include="Entity\RoleMenu.cs" />
     <Compile Include="Map\ActorMap.cs" />
+    <Compile Include="Map\MenuMap.cs" />
     <Compile Include="Map\OtherAddressMap.cs" />
+    <Compile Include="Map\PrivilegeMap.cs" />
     <Compile Include="Map\ProfileMap.cs" />
     <Compile Include="Map\RoleMap.cs" />
+    <Compile Include="Map\RoleMenuMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ActorRepository.cs" />
   </ItemGroup>

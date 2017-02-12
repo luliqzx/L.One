@@ -47,7 +47,7 @@ namespace L.One.Cons.Controller
                 this.UnitOfWork.Commit();
             }
 
-            Role roleAdmin = this.UnitOfWork.Session.Query<Role>().FirstOrDefault(x => x.Id == "Admin");
+            Role roleAdmin = this.UnitOfWork.CreateSession().Query<Role>().FirstOrDefault(x => x.Id == "Admin");
             if (roleAdmin == null)
             {
                 roleAdmin = new Role();
