@@ -21,6 +21,7 @@ namespace L.One.Domain.Entity
         public virtual void SetProfile(Profile Profile)
         {
             this.Profile = Profile;
+            this.Profile.Actor = this;
         }
 
         public virtual void SetMain(Actor MainActor)

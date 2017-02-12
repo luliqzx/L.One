@@ -29,18 +29,23 @@ namespace L.One.Cons.Controller
             this.UnitOfWork = _UnitOfWork;
         }
 
-
         public void Create()
         {
-            Actor parent1 = new Actor();
-            parent1.Id = "Par1";
-            parent1.CreateDate = DateTime.Now;
-            parent1.UpdateDate = DateTime.Now;
-            parent1.Active = true;
-            parent1.Description = "Par1";
-            this.UnitOfWork.BeginTransaction();
-            this.ActRepo.Save(parent1);
-            this.UnitOfWork.Commit();
+            Actor parent1 = this.ActRepo.Session.Load<Actor>("Par1");
+            if (parent1 == null)
+            {
+                parent1 = new Actor();
+
+                parent1.Id = "Par1";
+                parent1.CreateDate = DateTime.Now;
+                parent1.UpdateDate = DateTime.Now;
+                parent1.Active = true;
+                parent1.Description = "Par1";
+                this.UnitOfWork.BeginTransaction();
+                this.ActRepo.Save(parent1);
+                this.UnitOfWork.Commit();
+
+            }
 
             Actor Actor = new Actor();
             Actor.Id = "001";
@@ -51,7 +56,7 @@ namespace L.One.Cons.Controller
             Actor.SetMain(parent1);
 
             Profile prof = new Profile();
-            prof.Username = "Employee 1";
+            prof.Username = "Employee 001";
             prof.ActorType = ActorType.User;
             prof.Address = "Gang";
             prof.CreateDate = DateTime.Now;
@@ -80,7 +85,7 @@ namespace L.One.Cons.Controller
 
         public void Delete()
         {
-            Actor Actor = this.ActRepo.Session.Query<Actor>().FirstOrDefault(x => x.Id == "TEST");
+            Actor Actor = this.ActRepo.Session.Query<Actor>().FirstOrDefault(x => x.Id == "001");
             if (Actor != null)
             {
                 this.UnitOfWork.BeginTransaction();

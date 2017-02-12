@@ -20,6 +20,7 @@ namespace L.One.Domain.Common
         void Rollback();
         ISession CreateSession();
         ISession Session { get; set; }
+        string trxMsg { get; set; }
     }
 
     public class UnitOfWork : IUnitOfWork
@@ -53,7 +54,15 @@ namespace L.One.Domain.Common
             {
                 this.Session = CreateSession();
             }
-            _transaction = Session.BeginTransaction(IsolationLevel);
+            try
+            {
+                _transaction = Session.BeginTransaction(IsolationLevel);
+            }
+            catch (Exception ex)
+            {
+                string errMsg = Utils.GetErrorMessageInnerException(ex);
+                this.trxMsg = errMsg;
+            }
         }
 
         public void Commit()
@@ -67,10 +76,10 @@ namespace L.One.Domain.Common
             {
                 if (_transaction != null && _transaction.IsActive)
                     _transaction.Rollback();
+                //throw ex;
 
                 string errMsg = Utils.GetErrorMessageInnerException(ex);
-
-                throw ex;
+                this.trxMsg = errMsg;
             }
             finally
             {
@@ -84,6 +93,11 @@ namespace L.One.Domain.Common
             {
                 if (_transaction != null && _transaction.IsActive)
                     _transaction.Rollback();
+            }
+            catch (Exception ex)
+            {
+                string errMsg = Utils.GetErrorMessageInnerException(ex);
+                this.trxMsg = errMsg;
             }
             finally
             {
@@ -114,5 +128,7 @@ namespace L.One.Domain.Common
         {
             return _sessionFactory.OpenSession();
         }
+
+        public string trxMsg { get; set; }
     }
 }
