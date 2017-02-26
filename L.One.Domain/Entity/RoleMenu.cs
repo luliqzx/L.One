@@ -12,6 +12,8 @@ namespace L.One.Domain.Entity
         public virtual Menu Menu { get; set; }
         public virtual IList<Privilege> Privileges { get; set; }
 
+        public virtual bool Active { get; set; }
+
         public override bool Equals(object obj)
         {
             if (obj == null)

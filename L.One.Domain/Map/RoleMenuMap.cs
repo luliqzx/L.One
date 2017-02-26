@@ -17,7 +17,7 @@ namespace L.One.Domain.Map
                 .KeyReference(x => x.Menu, "MenuId");
 
             this.HasManyToMany(x => x.Privileges).Table("RoleMenuPrivilege").ParentKeyColumns.Add("RoleId", "MenuId").ChildKeyColumn("PrivilegeId");
-
+            this.Map(x => x.Active);
         }
 
     }

@@ -89,6 +89,21 @@ namespace L.One.Cons.Controller
             othAddr.UpdateDate = DateTime.Now;
             Actor.AddNewAddress(othAddr);
 
+            Menu menu = this.UnitOfWork.CreateSession().Query<Menu>().FirstOrDefault(x => x.Id == "DefaultMenu");
+            if (menu == null)
+            {
+                menu = new Menu();
+                menu.Id = "DefaultMenu";
+                menu.Description = "DefaultMenu";
+                menu.CreateDate = DateTime.Now;
+                menu.UpdateDate = DateTime.Now;
+                menu.Position = 1;
+
+                this.UnitOfWork.BeginTransaction();
+                this.UnitOfWork.Session.Save(menu);
+                this.UnitOfWork.Commit();
+            }
+
             Role role = this.UnitOfWork.CreateSession().Query<Role>().FirstOrDefault(x => x.Id == "User");
             if (role == null)
             {
@@ -101,6 +116,19 @@ namespace L.One.Cons.Controller
                 this.UnitOfWork.Session.Save(role);
                 this.UnitOfWork.Commit();
             }
+
+            RoleMenu rm = this.UnitOfWork.CreateSession().Query<RoleMenu>().FirstOrDefault(x => x.Role == role && x.Menu == menu);
+            if (rm == null)
+            {
+                rm = new RoleMenu();
+                rm.Role = role;
+                rm.Menu = menu;
+                rm.Active = true;
+                this.UnitOfWork.BeginTransaction();
+                this.UnitOfWork.Session.Save(rm);
+                this.UnitOfWork.Commit();
+            }
+            role.AddRoleMenu(rm);
             Actor.AddRole(role);
 
             this.UnitOfWork.BeginTransaction();
