@@ -12,6 +12,15 @@ namespace L.One.Domain.Entity
         public virtual Menu Menu { get; set; }
         public virtual IList<Privilege> Privileges { get; set; }
 
+        public virtual void AddPrivilege(Privilege o)
+        {
+            if (Privileges == null)
+            {
+                Privileges = new List<Privilege>();
+            }
+            Privileges.Add(o);
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null)

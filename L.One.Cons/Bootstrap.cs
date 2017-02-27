@@ -22,6 +22,7 @@ namespace L.One.Cons
                 // 2. Configure the container (register)
                 container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Singleton);
                 container.Register<IActorController, ActorController>(Lifestyle.Singleton);
+                container.Register<ITestController, TestController>(Lifestyle.Singleton);
                 container.Register<IActorRepository, ActorRepository>(Lifestyle.Singleton);
                 //container.Register<ICountRepository, CountRepository>(Lifestyle.Singleton);
                 //container.Register<IPrivilegeRepository, PrivilegeRepository>(Lifestyle.Singleton);

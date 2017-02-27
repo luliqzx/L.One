@@ -11,6 +11,7 @@ namespace L.One.Cons
     class Program
     {
         static IActorController ActorController { get; set; }
+        static ITestController TestController { get; set; }
 
         static void Main(string[] args)
         {
@@ -20,6 +21,11 @@ namespace L.One.Cons
             ActorController.Delete();
             ActorController.Create();
 
+            TestController = container.GetInstance<ITestController>();
+            TestController.CreateMenu();
+            //TestController.CreatePrivilege();
+            //TestController.CreateRole();
+            //TestController.CreateRoleMenuPrivilege();
         }
     }
 }
