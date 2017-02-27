@@ -53,10 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Common\SqlStatementInterceptor.cs" />
     <Compile Include="Common\UnitOfWork.cs" />
     <Compile Include="Entity\Actor.cs" />
     <Compile Include="Entity\ActorType.cs" />
     <Compile Include="Entity\BaseEntity.cs" />
+    <Compile Include="Entity\IAuditable.cs" />
     <Compile Include="Entity\Menu.cs" />
     <Compile Include="Entity\OtherAddress.cs" />
     <Compile Include="Entity\Privilege.cs" />
