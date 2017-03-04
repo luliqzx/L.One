@@ -128,6 +128,28 @@ namespace L.One.Cons.Controller
                 this.UnitOfWork.Session.Save(rm);
                 this.UnitOfWork.Commit();
             }
+            else
+            {
+                rm.Privileges.Clear();
+                for (int i = 0; i < 10; i++)
+                {
+                    Privilege priv = new Privilege();
+                    priv.Id = "test" + (i + 1);
+                    priv.Description = "test" + (i + 1);
+                    priv.CreateDate = DateTime.Now;
+                    priv.UpdateDate = DateTime.Now;
+
+                    //this.UnitOfWork.BeginTransaction();
+                    this.UnitOfWork.Session.Save(priv);
+                    //this.UnitOfWork.Commit();
+
+                    rm.Privileges.Add(priv);
+                }
+
+                this.UnitOfWork.BeginTransaction();
+                this.UnitOfWork.Session.SaveOrUpdate(rm);
+                this.UnitOfWork.Commit();
+            }
             role.AddRoleMenu(rm);
             Actor.AddRole(role);
 

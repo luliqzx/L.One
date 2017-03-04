@@ -13,7 +13,7 @@ namespace L.One.Domain.Entity
         public virtual Menu MainMenu { get; set; }
         public virtual string Link { get; set; }
 
-        public virtual IList<RoleMenu> RoleMenus { get; set; }
+        public virtual ICollection<RoleMenu> RoleMenus { get; set; }
 
     }
 }
