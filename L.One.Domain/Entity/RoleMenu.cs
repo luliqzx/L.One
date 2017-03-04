@@ -14,6 +14,15 @@ namespace L.One.Domain.Entity
 
         public virtual bool Active { get; set; }
 
+        public virtual void AddPrivilege(Privilege o)
+        {
+            if (Privileges == null)
+            {
+                Privileges = new List<Privilege>();
+            }
+            Privileges.Add(o);
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null)

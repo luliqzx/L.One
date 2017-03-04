@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace L.One.Domain.Entity
 {
-    public class BaseEntity<TID>
+    public class BaseEntity<TID> : IAuditable
     {
         public virtual TID Id { get; set; }
         public virtual string CreateBy { get; set; }

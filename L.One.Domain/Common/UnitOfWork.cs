@@ -39,7 +39,7 @@ namespace L.One.Domain.Common
                     .Database(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("MyConnectionString")));
             }
             flcfg.Mappings(x => x.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()));
-            flcfg.ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(true, true));
+            flcfg.ExposeConfiguration(cfg => new SchemaUpdate(cfg.SetInterceptor(new SqlStatementInterceptor())).Execute(true, true));
             _sessionFactory = flcfg.BuildSessionFactory();
         }
 

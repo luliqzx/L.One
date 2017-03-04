@@ -32,7 +32,7 @@ namespace L.One.Cons.Controller
 
         public void Create()
         {
-            Actor parent1 = this.ActRepo.Session.Load<Actor>("Par1");
+            Actor parent1 = this.ActRepo.Session.Query<Actor>().FirstOrDefault(x => x.Id == "Par1");
             if (parent1 == null)
             {
                 parent1 = new Actor();
