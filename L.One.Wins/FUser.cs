@@ -33,12 +33,12 @@ namespace L.One.Wins
         }
         private void Search_Click(object sender, EventArgs e)
         {
-            this.GridBind();
+            this.GridBind(txtIDU.Text, txtName.Text);
         }
 
-        private void GridBind()
+        private void GridBind(string SIDU = "", string Name = "")
         {
-            IList<Actor> lstActor = this.ActorRepository.GetAll().ToList();
+            IList<Actor> lstActor = this.ActorRepository.GetDisplayGrid(SIDU, Name);
             this.dataGridView1.DataSource = lstActor;
         }
     }
