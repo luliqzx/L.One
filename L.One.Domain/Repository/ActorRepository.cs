@@ -49,16 +49,27 @@ namespace L.One.Domain.Repository
             //var x = crt.List<Actor>();
             //return x;
 
+            IQueryable<Actor> qry = this.Session.Query<Actor>();
+            var rest = from x in qry
+                       //where x.Id == SIDU || x.Description.Like(Name)
+                       select new
+                        {
+                            x.Id,
+                            x.Description,
+                            x.Profile
+                        };
 
-            IQueryOver<Actor, Profile> qryOver = this.Session.QueryOver<Actor>().Left.JoinQueryOver(act => act.Profile);
-            if (!string.IsNullOrWhiteSpace(SIDU))
-            {
-                qryOver = qryOver.Where(Restrictions.On<Actor>(x => x.Id).IsLike(SIDU) || Restrictions.On<Actor>(x => x.Description).IsLike(Name));
-                qryOver = qryOver.Where(Restrictions.On<Profile>(x => x.Username).IsLike(SIDU));
-            }
+            return rest as IList<Actor>;
 
-            IList<Actor> lstActor = qryOver.List();
-            return lstActor;
+            //IQueryOver<Actor, Profile> qryOver = this.Session.QueryOver<Actor>().Left.JoinQueryOver(act => act.Profile);
+            //if (!string.IsNullOrWhiteSpace(SIDU))
+            //{
+            //    qryOver = qryOver.Where(Restrictions.On<Actor>(x => x.Id).IsLike(SIDU) || Restrictions.On<Actor>(x => x.Description).IsLike(Name));
+            //    qryOver = qryOver.Where(Restrictions.On<Profile>(x => x.Username).IsLike(SIDU));
+            //}
+
+            //IList<Actor> lstActor = qryOver.List();
+            //return lstActor;
         }
     }
 }
