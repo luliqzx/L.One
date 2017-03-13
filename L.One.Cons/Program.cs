@@ -17,15 +17,15 @@ namespace L.One.Cons
         {
             var container = new Container();
             Bootstrap.Start(container);
-            ActorController = container.GetInstance<IActorController>();
-            ActorController.Delete();
-            ActorController.Create();
+            //ActorController = container.GetInstance<IActorController>();
+            //ActorController.Delete();
+            //ActorController.Create();
 
             TestController = container.GetInstance<ITestController>();
-            TestController.CreateMenu();
-            //TestController.CreatePrivilege();
+            //TestController.CreateMenu();
+            TestController.CreatePrivilege();
             //TestController.CreateRole();
-            //TestController.CreateRoleMenuPrivilege();
+            TestController.CreateRoleMenuPrivilege();
         }
     }
 }

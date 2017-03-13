@@ -126,7 +126,9 @@ namespace L.One.Domain.Common
 
         public ISession CreateSession()
         {
-            return _sessionFactory.OpenSession();
+            this.Session = _sessionFactory.OpenSession();
+            //return _sessionFactory.OpenSession();
+            return this.Session;
         }
 
         public string trxMsg { get; set; }

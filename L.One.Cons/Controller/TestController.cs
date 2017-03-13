@@ -29,12 +29,12 @@ namespace L.One.Cons.Controller
         {
             using (ISession sess = this.uow.CreateSession())
             {
-                Role role = sess.Get<Role>("Vendor");
+                Role role = sess.Get<Role>("Vendor1");
                 if (role == null)
                 {
                     role = new Role();
-                    role.Id = "Vendor";
-                    role.Description = "Vendor";
+                    role.Id = "Vendor1";
+                    role.Description = "Vendor1";
                     role.CreateDate = DateTime.Now;
                     role.UpdateDate = DateTime.Now;
                     this.uow.BeginTransaction();
@@ -57,7 +57,7 @@ namespace L.One.Cons.Controller
                     o.CreateDate = DateTime.Now;
                     o.UpdateDate = DateTime.Now;
                     this.uow.BeginTransaction();
-                    this.uow.CreateSession().Save(o);
+                    sess.Save(o);
                     this.uow.Commit();
                 }
             }
@@ -65,45 +65,48 @@ namespace L.One.Cons.Controller
 
         public void CreatePrivilege()
         {
-            this.uow.BeginTransaction();
             using (ISession sess = this.uow.CreateSession())
             {
-                Privilege o = sess.Get<Privilege>("Privilege");
+                Privilege o = sess.Get<Privilege>("Privilege1");
                 if (o == null)
                 {
                     o = new Privilege();
-                    o.Id = "Privilege";
-                    o.Description = "Privilege";
+                    o.Id = "Privilege1";
+                    o.Description = "Privilege1";
                     o.CreateDate = DateTime.Now;
                     o.UpdateDate = DateTime.Now;
+                    this.uow.BeginTransaction();
                     sess.Save(o);
+                    this.uow.Commit();
                 }
             }
-            this.uow.Commit();
         }
 
         public void CreateRoleMenuPrivilege()
         {
             using (ISession sess = this.uow.CreateSession())
             {
-                Role role = sess.Get<Role>("Vendor");
+                this.uow.BeginTransaction();
+                Role role = sess.Get<Role>("Vendor1");
                 if (role != null)
                 {
                     if (role.RoleMenus == null)
                     {
-                        RoleMenu rm = new RoleMenu();
-                        rm.Role = role;
-                        rm.Menu = sess.Load<Menu>("Menu1");
-
-                        Privilege pr = sess.Get<Privilege>("Privilege");
-                        rm.AddPrivilege(pr);
-                        role.AddRoleMenu(rm);
+                        role.RoleMenus = new List<RoleMenu>();
                     }
+                    role.RoleMenus.Clear();
 
-                    this.uow.BeginTransaction();
+                    RoleMenu rm = new RoleMenu();
+                    rm.Role = role;
+                    rm.Menu = sess.Get<Menu>("Menu1");
+
+                    Privilege pr = sess.Get<Privilege>("Privilege1");
+                    rm.AddPrivilege(pr);
+                    role.AddRoleMenu(rm);
+
                     sess.SaveOrUpdate(role);
-                    this.uow.Commit();
                 }
+                this.uow.Commit();
             }
         }
     }
