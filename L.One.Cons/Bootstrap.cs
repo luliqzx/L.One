@@ -33,7 +33,7 @@ namespace L.One.Cons
             }
             catch (Exception ex)
             {
-                string errMsg = Utils.GetErrorMessageInnerException(ex);
+                string errMsg = ex.GetFullMessage();
             }
 
 

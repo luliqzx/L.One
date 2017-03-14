@@ -30,7 +30,7 @@ namespace L.One.Wins
             }
             catch (Exception ex)
             {
-                string errMsg = Utils.GetErrorMessageInnerException(ex);
+                string errMsg = ex.GetFullMessage();
             }
 
 

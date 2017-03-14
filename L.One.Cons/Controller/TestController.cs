@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using L.Core.Utilities;
 
 namespace L.One.Cons.Controller
 {
@@ -15,6 +16,7 @@ namespace L.One.Cons.Controller
         void CreateMenu();
         void CreatePrivilege();
         void CreateRoleMenuPrivilege();
+        void CRUDUoM();
     }
 
     public class TestController : ITestController
@@ -107,6 +109,57 @@ namespace L.One.Cons.Controller
                     sess.SaveOrUpdate(role);
                 }
                 this.uow.Commit();
+            }
+        }
+
+        public void CRUDUoM()
+        {
+            try
+            {
+                using (ISession sess = this.uow.CreateSession())
+                {
+                    this.uow.BeginTransaction();
+                    UoM BaseUoM = sess.Get<UoM>("BOX");
+                    if (BaseUoM == null)
+                    {
+                        BaseUoM = new UoM();
+                        BaseUoM.Id = "BOX";
+                        BaseUoM.Description = "BOX";
+                        BaseUoM.CreateDate = DateTime.Now;
+                        BaseUoM.UpdateDate = DateTime.Now;
+                    }
+
+                    UoM ConvUoM = sess.Get<UoM>("PAX");
+                    if (ConvUoM == null)
+                    {
+                        ConvUoM = new UoM();
+                        ConvUoM.Id = "PAX";
+                        ConvUoM.Description = "PAX";
+                        ConvUoM.CreateDate = DateTime.Now;
+                        ConvUoM.UpdateDate = DateTime.Now;
+                    }
+
+                    if (BaseUoM.UoMConversion == null)
+                    {
+                        BaseUoM.UoMConversion = new List<UoMConversion>();
+                    }
+                    BaseUoM.UoMConversion.Clear();
+
+                    UoMConversion uc = new UoMConversion();
+                    uc.BaseUoM = BaseUoM;
+                    uc.ConvUoM = ConvUoM;
+                    uc.BaseQty = 1;
+                    uc.ConvQty = 12;
+                    BaseUoM.AddConversion(uc);
+
+                    sess.SaveOrUpdate(ConvUoM);
+                    sess.SaveOrUpdate(BaseUoM);
+                    this.uow.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                string errMsg = ex.GetFullMessage();
             }
         }
     }

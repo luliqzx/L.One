@@ -23,9 +23,10 @@ namespace L.One.Cons
 
             TestController = container.GetInstance<ITestController>();
             //TestController.CreateMenu();
-            TestController.CreatePrivilege();
+            //TestController.CreatePrivilege();
             //TestController.CreateRole();
-            TestController.CreateRoleMenuPrivilege();
+            //TestController.CreateRoleMenuPrivilege();
+            TestController.CRUDUoM();
         }
     }
 }
