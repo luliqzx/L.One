@@ -19,7 +19,6 @@ namespace L.One.Domain.Map
             this.Map(x => x.Email);
             this.Map(x => x.Address);
 
-            this.Map(x => x.ActorType);
 
             #region Audit Trail
 

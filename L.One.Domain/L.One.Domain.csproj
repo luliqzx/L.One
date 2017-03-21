@@ -58,6 +58,7 @@
     <Compile Include="Entity\Actor.cs" />
     <Compile Include="Entity\ActorType.cs" />
     <Compile Include="Entity\BaseEntity.cs" />
+    <Compile Include="Entity\Plant.cs" />
     <Compile Include="Entity\IAuditable.cs" />
     <Compile Include="Entity\Material.cs" />
     <Compile Include="Entity\Menu.cs" />

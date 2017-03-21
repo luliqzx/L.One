@@ -13,6 +13,8 @@ namespace L.One.Domain.Entity
 
         public virtual Profile Profile { get; set; }
 
+        public virtual ActorType ActorType { get; set; }
+
         public virtual Actor MainActor { get; set; }
         //public virtual string MainActorId { get; set; }
 

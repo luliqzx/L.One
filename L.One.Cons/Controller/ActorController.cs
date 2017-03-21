@@ -70,10 +70,10 @@ namespace L.One.Cons.Controller
             Actor.Active = true;
             Actor.Description = "test";
             Actor.SetMain(parent1);
+            Actor.ActorType = ActorType.User;
 
             Profile prof = new Profile();
             prof.Username = "Employee 001";
-            prof.ActorType = ActorType.User;
             prof.Address = "Gang";
             prof.CreateDate = DateTime.Now;
             prof.UpdateDate = DateTime.Now;

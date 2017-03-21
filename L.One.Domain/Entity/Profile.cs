@@ -16,7 +16,6 @@ namespace L.One.Domain.Entity
         public virtual string Email { get; set; }
         //public virtual string ActorId { get; set; }
 
-        public virtual ActorType ActorType { get; set; }
 
         public virtual void SetActor(Actor Actor)
         {

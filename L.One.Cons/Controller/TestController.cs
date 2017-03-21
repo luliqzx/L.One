@@ -17,6 +17,7 @@ namespace L.One.Cons.Controller
         void CreatePrivilege();
         void CreateRoleMenuPrivilege();
         void CRUDUoM();
+        void CRUDUser();
     }
 
     public class TestController : ITestController
@@ -120,24 +121,33 @@ namespace L.One.Cons.Controller
                 {
                     this.uow.BeginTransaction();
                     UoM BaseUoM = sess.Get<UoM>("BOX");
-                    if (BaseUoM == null)
+                    if (BaseUoM != null)
                     {
-                        BaseUoM = new UoM();
-                        BaseUoM.Id = "BOX";
-                        BaseUoM.Description = "BOX";
-                        BaseUoM.CreateDate = DateTime.Now;
-                        BaseUoM.UpdateDate = DateTime.Now;
+                        sess.Delete(BaseUoM);
                     }
 
+                    //if (BaseUoM == null)
+                    //{
+                    BaseUoM = new UoM();
+                    BaseUoM.Id = "BOX";
+                    BaseUoM.Description = "BOX";
+                    BaseUoM.CreateDate = DateTime.Now;
+                    BaseUoM.UpdateDate = DateTime.Now;
+                    //}
+
                     UoM ConvUoM = sess.Get<UoM>("PAX");
-                    if (ConvUoM == null)
+                    if (ConvUoM != null)
                     {
-                        ConvUoM = new UoM();
-                        ConvUoM.Id = "PAX";
-                        ConvUoM.Description = "PAX";
-                        ConvUoM.CreateDate = DateTime.Now;
-                        ConvUoM.UpdateDate = DateTime.Now;
+                        sess.Delete(ConvUoM);
                     }
+                    //if (ConvUoM == null)
+                    //{
+                    ConvUoM = new UoM();
+                    ConvUoM.Id = "PAX";
+                    ConvUoM.Description = "PAX";
+                    ConvUoM.CreateDate = DateTime.Now;
+                    ConvUoM.UpdateDate = DateTime.Now;
+                    //}
 
                     if (BaseUoM.UoMConversion == null)
                     {
@@ -154,6 +164,34 @@ namespace L.One.Cons.Controller
 
                     sess.SaveOrUpdate(ConvUoM);
                     sess.SaveOrUpdate(BaseUoM);
+                    this.uow.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                string errMsg = ex.GetFullMessage();
+            }
+        }
+
+
+        public void CRUDUser()
+        {
+            try
+            {
+                using (ISession sess = this.uow.CreateSession())
+                {
+                    this.uow.BeginTransaction();
+                    Actor Actor = sess.Get<Actor>("Admin");
+                    if (Actor != null)
+                    {
+                        sess.Delete(Actor);
+                    }
+
+                    Actor = new Actor();
+                    Actor.Id = "BOX";
+                    Actor.Description = "BOX";
+                    Actor.CreateDate = DateTime.Now;
+                    Actor.UpdateDate = DateTime.Now;
                     this.uow.Commit();
                 }
             }

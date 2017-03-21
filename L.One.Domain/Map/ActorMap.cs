@@ -21,6 +21,8 @@ namespace L.One.Domain.Map
             this.HasMany(x => x.OtherAddress).KeyColumn("ActorId").Inverse().Cascade.AllDeleteOrphan();
             this.HasManyToMany(x => x.Roles).Table("ActorRole").ParentKeyColumn("ActorId").ChildKeyColumn("RoleId");
 
+            this.Map(x => x.ActorType);
+
             #region Audit Trail
 
             this.Map(x => x.CreateBy);
