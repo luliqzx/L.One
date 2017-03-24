@@ -50,14 +50,15 @@ namespace L.One.Domain.Repository
             //return x;
 
             IQueryable<Actor> qry = this.Session.Query<Actor>();
-            var rest = from x in qry
-                       //where x.Id == SIDU || x.Description.Like(Name)
-                       select new
-                        {
-                            x.Id,
-                            x.Description,
-                            x.Profile
-                        };
+            var rest = qry.ToList();
+            //var rest = from x in qry
+            //           //where x.Id == SIDU || x.Description.Like(Name)
+            //           select new
+            //            {
+            //                x.Id,
+            //                x.Description,
+            //                x.Profile
+            //            };
 
             return rest as IList<Actor>;
 

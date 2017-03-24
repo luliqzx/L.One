@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using L.Core.Utilities;
 
 namespace L.One.Wins
 {
@@ -29,7 +30,39 @@ namespace L.One.Wins
             this.ActorRepository = _ActorRepository;
 
             InitializeComponent();
-            this.GridBind();
+            Timer timer = new Timer();
+            timer.Interval = (6 * 1000); // 10 secs
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+        }
+        Timer timer2 = new Timer();
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            this.dataGridView1.DataSource = null;
+            this.dataGridView1.Rows.Clear();
+
+            timer2.Interval = (3 * 1000); // 10 secs
+            timer2.Tick += new EventHandler(timer2_Tick);
+            timer2.Start();
+
+            //refresh here...
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                this.GridBind();
+                timer2.Stop();
+            }
+            catch (Exception ex)
+            {
+                string err = ex.GetFullMessage();
+                Application.Restart();
+                Application.ExitThread();
+            }
+
         }
         private void Search_Click(object sender, EventArgs e)
         {
@@ -38,7 +71,7 @@ namespace L.One.Wins
 
         private void GridBind(string SIDU = "", string Name = "")
         {
-            IList<Actor> lstActor = this.ActorRepository.GetDisplayGrid(SIDU, Name);
+            var lstActor = this.ActorRepository.GetDisplayGrid(SIDU, Name);
             this.dataGridView1.DataSource = lstActor;
         }
     }
