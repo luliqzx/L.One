@@ -12,6 +12,7 @@ namespace L.One.Domain.Entity
         public virtual int Position { get; set; }
         public virtual Menu MainMenu { get; set; }
         public virtual string Link { get; set; }
+        public virtual bool Active { get; set; }
 
         public virtual ICollection<RoleMenu> RoleMenus { get; set; }
 

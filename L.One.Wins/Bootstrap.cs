@@ -1,5 +1,4 @@
 ﻿using L.Core.Utilities;
-using L.One.Cons.Controller;
 using L.One.Domain.Common;
 using L.One.Domain.Repository;
 using SimpleInjector;
@@ -9,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace L.One.Cons
+namespace L.One.Wins
 {
     class Bootstrap
     {
@@ -21,8 +20,6 @@ namespace L.One.Cons
 
                 // 2. Configure the container (register)
                 container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Singleton);
-                container.Register<IActorController, ActorController>(Lifestyle.Singleton);
-                container.Register<ITestController, TestController>(Lifestyle.Singleton);
                 container.Register<IActorRepository, ActorRepository>(Lifestyle.Singleton);
                 //container.Register<ICountRepository, CountRepository>(Lifestyle.Singleton);
                 //container.Register<IPrivilegeRepository, PrivilegeRepository>(Lifestyle.Singleton);

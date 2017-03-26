@@ -60,7 +60,7 @@ namespace L.One.Domain.Common
             }
             catch (Exception ex)
             {
-                string errMsg = Utils.GetErrorMessageInnerException(ex);
+                string errMsg = ex.GetFullMessage();
                 this.trxMsg = errMsg;
             }
         }
@@ -78,7 +78,7 @@ namespace L.One.Domain.Common
                     _transaction.Rollback();
                 //throw ex;
 
-                string errMsg = Utils.GetErrorMessageInnerException(ex);
+                string errMsg = ex.GetFullMessage();
                 this.trxMsg = errMsg;
             }
             finally
@@ -96,7 +96,7 @@ namespace L.One.Domain.Common
             }
             catch (Exception ex)
             {
-                string errMsg = Utils.GetErrorMessageInnerException(ex);
+                string errMsg = ex.GetFullMessage();
                 this.trxMsg = errMsg;
             }
             finally
@@ -126,7 +126,9 @@ namespace L.One.Domain.Common
 
         public ISession CreateSession()
         {
-            return _sessionFactory.OpenSession();
+            this.Session = _sessionFactory.OpenSession();
+            //return _sessionFactory.OpenSession();
+            return this.Session;
         }
 
         public string trxMsg { get; set; }

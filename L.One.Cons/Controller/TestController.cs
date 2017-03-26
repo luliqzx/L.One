@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using L.Core.Utilities;
 
 namespace L.One.Cons.Controller
 {
@@ -15,6 +16,7 @@ namespace L.One.Cons.Controller
         void CreateMenu();
         void CreatePrivilege();
         void CreateRoleMenuPrivilege();
+        void CRUDUoM();
     }
 
     public class TestController : ITestController
@@ -29,12 +31,12 @@ namespace L.One.Cons.Controller
         {
             using (ISession sess = this.uow.CreateSession())
             {
-                Role role = sess.Get<Role>("Vendor");
+                Role role = sess.Get<Role>("Vendor1");
                 if (role == null)
                 {
                     role = new Role();
-                    role.Id = "Vendor";
-                    role.Description = "Vendor";
+                    role.Id = "Vendor1";
+                    role.Description = "Vendor1";
                     role.CreateDate = DateTime.Now;
                     role.UpdateDate = DateTime.Now;
                     this.uow.BeginTransaction();
@@ -57,7 +59,7 @@ namespace L.One.Cons.Controller
                     o.CreateDate = DateTime.Now;
                     o.UpdateDate = DateTime.Now;
                     this.uow.BeginTransaction();
-                    this.uow.CreateSession().Save(o);
+                    sess.Save(o);
                     this.uow.Commit();
                 }
             }
@@ -65,45 +67,99 @@ namespace L.One.Cons.Controller
 
         public void CreatePrivilege()
         {
-            this.uow.BeginTransaction();
             using (ISession sess = this.uow.CreateSession())
             {
-                Privilege o = sess.Get<Privilege>("Privilege");
+                Privilege o = sess.Get<Privilege>("Privilege1");
                 if (o == null)
                 {
                     o = new Privilege();
-                    o.Id = "Privilege";
-                    o.Description = "Privilege";
+                    o.Id = "Privilege1";
+                    o.Description = "Privilege1";
                     o.CreateDate = DateTime.Now;
                     o.UpdateDate = DateTime.Now;
+                    this.uow.BeginTransaction();
                     sess.Save(o);
+                    this.uow.Commit();
                 }
             }
-            this.uow.Commit();
         }
 
         public void CreateRoleMenuPrivilege()
         {
             using (ISession sess = this.uow.CreateSession())
             {
-                Role role = sess.Get<Role>("Vendor");
+                this.uow.BeginTransaction();
+                Role role = sess.Get<Role>("Vendor1");
                 if (role != null)
                 {
                     if (role.RoleMenus == null)
                     {
-                        RoleMenu rm = new RoleMenu();
-                        rm.Role = role;
-                        rm.Menu = sess.Load<Menu>("Menu1");
+                        role.RoleMenus = new List<RoleMenu>();
+                    }
+                    role.RoleMenus.Clear();
 
-                        Privilege pr = sess.Get<Privilege>("Privilege");
-                        rm.AddPrivilege(pr);
-                        role.AddRoleMenu(rm);
+                    RoleMenu rm = new RoleMenu();
+                    rm.Role = role;
+                    rm.Menu = sess.Get<Menu>("Menu1");
+
+                    Privilege pr = sess.Get<Privilege>("Privilege1");
+                    rm.AddPrivilege(pr);
+                    role.AddRoleMenu(rm);
+
+                    sess.SaveOrUpdate(role);
+                }
+                this.uow.Commit();
+            }
+        }
+
+        public void CRUDUoM()
+        {
+            try
+            {
+                using (ISession sess = this.uow.CreateSession())
+                {
+                    this.uow.BeginTransaction();
+                    UoM BaseUoM = sess.Get<UoM>("BOX");
+                    if (BaseUoM == null)
+                    {
+                        BaseUoM = new UoM();
+                        BaseUoM.Id = "BOX";
+                        BaseUoM.Description = "BOX";
+                        BaseUoM.CreateDate = DateTime.Now;
+                        BaseUoM.UpdateDate = DateTime.Now;
                     }
 
-                    this.uow.BeginTransaction();
-                    sess.SaveOrUpdate(role);
+                    UoM ConvUoM = sess.Get<UoM>("PAX");
+                    if (ConvUoM == null)
+                    {
+                        ConvUoM = new UoM();
+                        ConvUoM.Id = "PAX";
+                        ConvUoM.Description = "PAX";
+                        ConvUoM.CreateDate = DateTime.Now;
+                        ConvUoM.UpdateDate = DateTime.Now;
+                    }
+
+                    if (BaseUoM.UoMConversion == null)
+                    {
+                        BaseUoM.UoMConversion = new List<UoMConversion>();
+                    }
+                    BaseUoM.UoMConversion.Clear();
+
+                    UoMConversion uc = new UoMConversion();
+                    uc.BaseUoM = BaseUoM;
+                    uc.ConvUoM = ConvUoM;
+                    uc.BaseQty = 1;
+                    uc.ConvQty = 12;
+                    BaseUoM.AddConversion(uc);
+
+                    sess.SaveOrUpdate(ConvUoM);
+                    sess.SaveOrUpdate(BaseUoM);
                     this.uow.Commit();
                 }
+            }
+            catch (Exception ex)
+            {
+                string errMsg = ex.GetFullMessage();
             }
         }
     }
