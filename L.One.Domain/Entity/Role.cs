@@ -9,9 +9,9 @@ namespace L.One.Domain.Entity
     public class Role : BaseEntity<string>
     {
         public virtual string Description { get; set; }
-        public virtual IList<Actor> Actors { get; set; }
+        public virtual ICollection<Actor> Actors { get; set; }
         public virtual Role MainRole { get; set; }
-        public virtual IList<RoleMenu> RoleMenus { get; set; }
+        public virtual ICollection<RoleMenu> RoleMenus { get; set; }
 
         public virtual void AddActor(Actor newActor)
         {

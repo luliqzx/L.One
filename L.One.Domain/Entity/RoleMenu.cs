@@ -10,7 +10,9 @@ namespace L.One.Domain.Entity
     {
         public virtual Role Role { get; set; }
         public virtual Menu Menu { get; set; }
-        public virtual IList<Privilege> Privileges { get; set; }
+        public virtual ICollection<Privilege> Privileges { get; set; }
+
+        public virtual bool Active { get; set; }
 
         public virtual void AddPrivilege(Privilege o)
         {
