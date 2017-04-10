@@ -19,6 +19,7 @@ namespace L.One.Domain.Entity
         //public virtual string MainActorId { get; set; }
 
         public virtual ICollection<OtherAddress> OtherAddress { get; set; }
+
         public virtual ICollection<Role> Roles { get; set; }
 
         public virtual void SetProfile(Profile Profile)

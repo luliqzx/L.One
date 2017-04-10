@@ -24,13 +24,18 @@ namespace L.One.Webs
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            this.SetUp();
 
+        }
+
+        private void SetUp()
+        {
             // Simple Injector set up
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
             // Register your stuff here  
-            container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
-            container.Register<IActorRepository, ActorRepository>(Lifestyle.Scoped);
+            container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Singleton);
+            container.Register<IActorRepository, ActorRepository>(Lifestyle.Singleton);
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
             container.RegisterMvcIntegratedFilterProvider();
             try

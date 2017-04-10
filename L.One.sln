@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L.One.Wins", "L.One.Wins\L.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L.One.Webs", "L.One.Webs\L.One.Webs.csproj", "{C79CCC9A-B831-40BF-B004-F35D2855D9C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L.One.WebApp", "L.One.WebApp\L.One.WebApp.csproj", "{87F21C05-420C-4E16-B62E-3BB62928E8B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L.One.WebApp.Tests", "L.One.WebApp.Tests\L.One.WebApp.Tests.csproj", "{BBF5F9E8-2A65-4C65-AFA7-C0BCFA481B80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{C79CCC9A-B831-40BF-B004-F35D2855D9C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C79CCC9A-B831-40BF-B004-F35D2855D9C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C79CCC9A-B831-40BF-B004-F35D2855D9C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87F21C05-420C-4E16-B62E-3BB62928E8B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87F21C05-420C-4E16-B62E-3BB62928E8B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87F21C05-420C-4E16-B62E-3BB62928E8B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87F21C05-420C-4E16-B62E-3BB62928E8B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBF5F9E8-2A65-4C65-AFA7-C0BCFA481B80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBF5F9E8-2A65-4C65-AFA7-C0BCFA481B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBF5F9E8-2A65-4C65-AFA7-C0BCFA481B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBF5F9E8-2A65-4C65-AFA7-C0BCFA481B80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
